@@ -4,7 +4,10 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "syncnode-server": "github:syncnode/syncnode-server"
+    "chokidar": "^1.7.0",
+    "express": "^4.15.2",
+    "syncnode-server": "github:syncnode/syncnode-server",
+    "ws": "^2.3.1"
   },
   "devDependencies": {},
   "scripts": {

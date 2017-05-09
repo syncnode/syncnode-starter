@@ -1,0 +1,33 @@
+{
+export class TodoItemModel extends SyncNode {
+  text: string;
+  complete: boolean;
+}
+
+export class MainModel extends SyncNode {
+  todoItems: SyncNode;
+}
+}
+
+
+TodoItem<TodoItemModel>({ tag: 'li' })
+    #text $data.text
+        .style { display: inline-block; width: 15em; }
+        onClick() { this.data.set('complete', !this.data.complete); }
+    #addBtn:button 'X'
+        onClick() { this.data.parent.remove(this.data.key); }
+    render() {
+        this.text.style.textDecoration = this.data.complete ? 'line-through' : 'none';
+    }
+
+MainView<MainModel>
+    .style { padding: 1em }
+    #title:h1 'Todo List'
+    #newTodo:input
+    #addBtn:button 'Add Todo'
+        onClick() {
+            this.data.todoItems.setItem({ text: this.newTodo.value, complete: false });
+            this.newTodo.value = '';
+        }
+    #list:SyncList({ item: TodoItem, tag: 'ul' }) $data.todoItems
+        .style { margin-top: 1em }
